@@ -22,9 +22,10 @@ Route::prefix('v1')->group(function(){
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
-
-        Route::get('users', [UserController::class,'listAll']);
-        Route::post('users', [UserController::class,'create']);
+        Route::prefix('users')->group(function(){
+            Route::get('/', [UserController::class,'listAll']);
+            Route::post('/', [UserController::class,'create']);
+        });
     });
 
 
