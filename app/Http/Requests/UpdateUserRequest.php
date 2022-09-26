@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
@@ -13,7 +14,8 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $is_Admin = Auth::user()->is_admin;
+        return $is_Admin;
     }
 
     /**
@@ -24,7 +26,13 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'institution_id' => 'required_if:institution_id, institution_id',
+            'name' => 'required_if:name, name',
+            'cpf' => 'required_if:cpf, cpf|max:14',
+            'email' => 'required_if:email, email|unique:users,email|email',
+            'password' => 'required_if:password, password|min:6|same:passwordConfirmation',
+            'is_admin' => 'boolean',
+            'status' => 'string'
         ];
     }
 }
