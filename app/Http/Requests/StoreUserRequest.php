@@ -32,7 +32,6 @@ class StoreUserRequest extends FormRequest
             'is_admin' => 'boolean',
             'status' => 'string'
 
-
         ];
     }
 
