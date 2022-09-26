@@ -23,7 +23,6 @@ class AuthService
         if (!Auth::attempt($data)) {
             return $this->badRequest(['message' => 'Credentials not match.']);
         }
-
         return auth()->user()->createToken('api-biblioteca-' . auth()->user()->id)->plainTextToken;
     }
 
