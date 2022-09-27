@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         User::create([
             'institution_id' => 1,
             'name' => 'Alex Ferman',
+            'username' => 'RA' . rand(),
             'cpf' =>  '001.666.952-54',
             'email' => 'alexjferman@gmail.com',
             'password' => Hash::make('Asd@33312'),
