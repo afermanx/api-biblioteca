@@ -28,6 +28,16 @@ class AuthController extends Controller
     }
 
     /**
+     * return data of user authentication
+     *
+     * @return JsonResponse
+     */
+    public function me(): JsonResponse
+    {
+       return $this->ok(AuthService::me());
+    }
+
+    /**
      * logout and token revoked to auth user
      *
      * @param Request $request

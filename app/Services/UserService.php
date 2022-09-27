@@ -32,8 +32,10 @@ class UserService
      */
     public function create(array $data): User
     {
+
         return User::create([
             ...$data,
+            'username' => $this->generateRaLogin(),
             'password' => Hash::make(data_get($data, 'password')),
         ]);
     }
@@ -46,8 +48,19 @@ class UserService
         ]);
 
         if (!$isSaved || $data === []) {
-           return $this->badRequest(['erro' => 'Error when trying to change user.']);
+            return $this->badRequest(['erro' => 'Error when trying to change user.']);
         }
         return $this->ok(['message' => 'User changed successfully']);
+    }
+
+   /**
+    * Generate RA for used login
+    *
+    * @return string
+    */
+    private function generateRaLogin(): string
+    {
+        $raAuth = 'RA' . rand();
+        return  $raAuth;
     }
 }

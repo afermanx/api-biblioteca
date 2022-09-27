@@ -26,13 +26,13 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'institution_id' => 'required_if:institution_id, institution_id',
-            'name' => 'required_if:name, name',
-            'cpf' => 'required_if:cpf, cpf|max:14',
-            'email' => 'required_if:email, email|unique:users,email|email',
-            'password' => 'required_if:password, password|min:6|same:passwordConfirmation',
-            'is_admin' => 'boolean',
-            'status' => 'string'
+            'institution_id' => 'sometimes|required',
+            'name' => 'sometimes|required',
+            'cpf' => 'sometimes|required|max:14',
+            'email' => 'sometimes|required|unique:users,email|email',
+            'password' => 'sometimes|required|min:6|same:passwordConfirmation',
+            'is_admin' => 'sometimes|required|boolean',
+            'status' => 'sometimes|required|string'
         ];
     }
 }

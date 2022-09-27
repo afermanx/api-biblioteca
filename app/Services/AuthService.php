@@ -26,6 +26,11 @@ class AuthService
         return auth()->user()->createToken('api-biblioteca-' . auth()->user()->id)->plainTextToken;
     }
 
+    public function me(): User
+    {
+        return auth()->user();
+    }
+
     /**
      * get the token of the logged in user to delete only the token used for the login and then log out
      *

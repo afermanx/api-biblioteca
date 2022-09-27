@@ -24,8 +24,8 @@ class LoginUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'string|email|',
-            'cpf' => 'required|string|max:14',
+            'username' => 'required|string',
+
             'password' => 'required|string|min:6'
         ];
     }
@@ -38,9 +38,8 @@ class LoginUserRequest extends FormRequest
     public function messages()
     {
         return[
-
-            'email.required' => 'The email field is required',
-            'password.required' => 'The password field is required',
+            'username.required' => 'O campo usuario é requerido',
+            'password.required' => 'O campo senha é requerido',
         ];
     }
 }

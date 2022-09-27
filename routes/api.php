@@ -20,8 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
 
+
+
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
+        Route::get('/auth/me', [AuthController::class, 'me']);
+
         Route::prefix('users')->group(function () {
             Route::get('/', [UserController::class,'listAll']);
             Route::post('/', [UserController::class,'create']);
