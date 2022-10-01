@@ -18,10 +18,11 @@ class UserSeeder extends Seeder
         User::create([
             'institution_id' => 1,
             'name' => 'Alex Ferman',
-            'username' => 'RA' . rand(),
-            'cpf' =>  '001.666.952-54',
+            'username' => "ET5694",
             'email' => 'alexjferman@gmail.com',
-            'password' => Hash::make('Asd@33312'),
+            'password' => Hash::make('Asd@#3312'),
+            'type' => 'super',
+            'status' => 'active',
             'is_admin' => true,
         ]);
     }

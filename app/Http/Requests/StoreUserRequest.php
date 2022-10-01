@@ -26,12 +26,11 @@ class StoreUserRequest extends FormRequest
         return [
             'institution_id' => 'required',
             'name' => 'required',
-            'cpf' => 'required|max:14',
-            'email' => 'required|unique:users|email',
-            'password' => 'required|min:6|same:passwordConfirmation',
+            'email' => ['required','unique:users,email'],
+            'password' => ['required','min:6', 'same:passwordConfirmation'],
+            'type' => ['sometimes', 'required', 'string' ],
             'is_admin' => 'boolean',
-            'status' => 'string'
-
+            'status' => ['sometimes', 'required', 'string' ],
         ];
     }
 

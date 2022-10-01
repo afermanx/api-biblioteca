@@ -18,12 +18,12 @@ return new class extends Migration {
             $table->foreignIdFor(Institution::class);
             $table->string('name');
             $table->string('username');
-            $table->string('cpf')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('type',['student', 'librarian','super'])->nullable();
             $table->boolean('is_admin')->default(false);
-            $table->string('status')->default('active');
+            $table->enum('status', ['inactive', 'active','absent'])->default('active');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
