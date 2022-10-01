@@ -11,6 +11,10 @@ class Institution extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        "name"
+        "name",
+        "inep",
+        "admin_dependency",
+        "phases",
+        "modalities"
     ];
 }

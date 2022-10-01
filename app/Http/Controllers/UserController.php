@@ -47,7 +47,7 @@ class UserController extends Controller
      */
     public function find(User $user): JsonResponse
     {
-        return $this->ok($user);
+        return $this->ok(nwUserResource($user));
     }
 
     /**

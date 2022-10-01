@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('type',['student', 'librarian','super'])->nullable();
+            $table->enum('type', ['student', 'librarian','super','main'])->nullable();
             $table->boolean('is_admin')->default(false);
             $table->enum('status', ['inactive', 'active','absent'])->default('active');
             $table->rememberToken();
