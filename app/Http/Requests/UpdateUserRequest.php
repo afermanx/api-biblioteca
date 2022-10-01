@@ -26,13 +26,14 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'institution_id' => 'sometimes|required',
-            'name' => 'sometimes|required',
-            'cpf' => 'sometimes|required|max:14',
-            'email' => 'sometimes|required|unique:users,email|email',
-            'password' => 'sometimes|required|min:6|same:passwordConfirmation',
-            'is_admin' => 'sometimes|required|boolean',
-            'status' => 'sometimes|required|string'
+            'institution_id' => ['sometimes', 'required'],
+            'name' => ['sometimes', 'required'],
+            'username' => ['sometimes', 'string', 'unique:users,username,'. $this->user->id ],
+            'email' => ['sometimes','required', 'unique:users,email,'. $this->user->id],
+            'password' => ['sometimes','required, min:6, same:passwordConfirmation'],
+            'type' => ['sometimes', 'required', 'string'],
+            'is_admin' => ['sometimes','required, boolean'],
+            'status' => ['sometimes','required, string']
         ];
     }
 }
