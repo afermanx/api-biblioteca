@@ -14,8 +14,8 @@ return new class extends Migration {
     {
         Schema::create('institutions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->bigInteger('inep')->nullable();
+            $table->string('name')->unique();
+            $table->bigInteger('inep')->unique();
             $table->string('admin_dependency')->nullable();
             $table->string('phases')->nullable();
             $table->string('modalities')->nullable();

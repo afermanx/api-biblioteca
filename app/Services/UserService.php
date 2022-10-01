@@ -24,11 +24,13 @@ class UserService
         return User::paginate($perPage);
     }
 
+
     /**
-     * create a new user
+     * It creates a user
      *
-     * @param array $data
-     * @return User
+     * @param array data The data to be sanitized.
+     *
+     * @return User The user object
      */
     public function create(array $data): User
     {
@@ -63,14 +65,13 @@ class UserService
      */
     private function sanitazeData(array $data, ?User $user = null): array
     {
-        /* dd($user, $data, $data['institution_id']); */
-        if(!$user){
+        if (!$user) {
             $institution = Institution::find($data['institution_id']);
         }
-       return[
-        ...$data,
-        'username' => $user === null ? generateUsername($institution->name) : $data['username'],
-        'password' => Hash::make(data_get($data, 'password')),
-       ];
+        return[
+         ...$data,
+         'username' => $user === null ? generateUsername($institution->name) : $data['username'],
+         'password' => Hash::make(data_get($data, 'password')),
+        ];
     }
 }
