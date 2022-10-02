@@ -17,4 +17,14 @@ class Institution extends Model
         "phases",
         "modalities"
     ];
+
+    /**
+     * > The user() function returns a relationship between the User model and the Profile model
+     *
+     * @return A user object
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }
