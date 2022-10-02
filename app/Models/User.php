@@ -12,11 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
     protected $fillable = [
         'institution_id',
         'name',
@@ -46,4 +42,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The `institution()` function returns a relationship between the `User` model and the
+     * `Institution` model
+     *
+     * @return The institution that is associated with the user.
+     */
+    public function institution()
+    {
+        return $this->hasOne(Institution::class);
+    }
 }
