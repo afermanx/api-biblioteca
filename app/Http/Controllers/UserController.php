@@ -24,7 +24,7 @@ class UserController extends Controller
     public function listAll(Request $request): JsonResponse
     {
         $users = UserService::listAll($request->all());
-        return $this->ok(new UserResourceCollection($users));
+        return $this->ok(UserResource::collection($users));
     }
 
     /**
@@ -36,7 +36,7 @@ class UserController extends Controller
     public function create(StoreUserRequest $request): JsonResponse
     {
         $user = UserService::create($request->validated());
-        return $this->ok(new UserResource($user));
+        return $this->ok(UserResource::make($user));
     }
 
     /**
@@ -47,7 +47,7 @@ class UserController extends Controller
      */
     public function find(User $user): JsonResponse
     {
-        return $this->ok(nwUserResource($user));
+        return $this->ok(UserResource::make($user));
     }
 
     /**
