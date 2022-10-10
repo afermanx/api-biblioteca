@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\InstitutionController;
+use App\Http\Controllers\{
+    UserController,
+    AuthController,
+    InstitutionController,
+    LibraryController
+};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +38,10 @@ Route::prefix('v1')->group(function () {
 
         Route::prefix('institutions')->group(function(){
             Route::post('/', [InstitutionController::class, 'create']);
+        });
 
+        Route::prefix('library')->group(function(){
+            Route::patch('/{library}', [LibraryController::class, 'update']);
         });
     });
 });

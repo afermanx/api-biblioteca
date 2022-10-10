@@ -15,7 +15,8 @@ class InstutionSeeder extends Seeder
     public function run()
     {
         Institution::create([
-            "name" => "Carlos Gomes"
+            "name" => "Teste Instituição",
+            "inep" => rand()
         ]);
     }
 }
