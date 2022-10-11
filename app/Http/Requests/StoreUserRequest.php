@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
         return [
             'institution_id' => 'required',
             'name' => 'required',
-            'email' => ['required','unique:users,email'],
+            'email' => ['required','unique:users,email', 'email:dns'],
             'password' => ['required','min:6', 'same:passwordConfirmation'],
             'type' => ['sometimes', 'required', 'string' ],
             'is_admin' => 'boolean',

@@ -29,7 +29,7 @@ class UpdateUserRequest extends FormRequest
             'institution_id' => ['sometimes', 'required'],
             'name' => ['sometimes', 'required'],
             'username' => ['sometimes', 'string', 'unique:users,username,'. $this->user->id ],
-            'email' => ['sometimes','required', 'unique:users,email,'. $this->user->id],
+            'email' => ['sometimes','required', 'email:dns', 'unique:users,email,'. $this->user->id],
             'password' => ['sometimes','required, min:6, same:passwordConfirmation'],
             'type' => ['sometimes', 'required', 'string'],
             'is_admin' => ['sometimes','required, boolean'],
