@@ -39,14 +39,14 @@ class StoreUserRequest extends FormRequest
      *
      * @return void
      */
-    /* public function messages()
+     public function messages()
     {
         return[
-            'username.required' => 'The username field is required',
+            'username.required' => 'O campo nome de usuário é obrigatório.',
             'name.required' => 'The name field is required.',
             'email.required' => 'The email field is required.',
             'email.email' => 'The email must be a valid email address.',
             'email.regex' => 'The email format is invalid.',
         ];
-    } */
+    } 
 }
