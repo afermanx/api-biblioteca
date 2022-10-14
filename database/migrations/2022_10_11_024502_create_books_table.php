@@ -16,11 +16,12 @@ return new class extends Migration {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Institution::class);
-            $table->string('name');
+            $table->string('name')->unique;
             $table->string('description');
-            $table->string('classification');
+            $table->enum('classification', ['municipal', 'state']);
             $table->string('author');
             $table->string('publisher');
+            $table->bigInteger('amount')->default(0);
             $table->enum('status', ['inactive', 'active','absent'])->default('active');
             $table->timestamps();
         });

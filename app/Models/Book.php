@@ -9,7 +9,8 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $filable = [
+    protected $fillable = [
+        "institution_id",
         "name",
         "description",
         "classification",
