@@ -10,13 +10,14 @@ class Book extends Model
     use HasFactory;
 
     protected $fillable = [
-        'institution_id',
+        'library_id',
         'name',
         'description',
         'classification',
         'author',
         'publisher',
         'avatar',
+        'amount',
         'status'
     ];
 }

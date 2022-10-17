@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateBookRequest extends FormRequest
@@ -13,7 +15,12 @@ class UpdateBookRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $authorized = User::where('id', Auth::user()->id)
+        ->whereIn('type', ['librarian', 'super', 'main'])
+        ->first();
+
+        $authorized ? 'true' : false;
+        return $authorized;
     }
 
     /**
@@ -24,8 +31,8 @@ class UpdateBookRequest extends FormRequest
     public function rules()
     {
         return [
-            'institution_id' => ['sometimes', 'required', 'integer'],
-            'name' => ['sometimes', 'required', 'string', 'unique:books,name'],
+            'library_id' => ['sometimes', 'required', 'integer'],
+            'name' => ['sometimes', 'required', 'string', 'unique:books,name,' . $this->book->id],
             'description' => ['sometimes', 'string', 'max:255'],
             'classification' => ['sometimes', 'required', 'string'],
             'author' => ['sometimes', 'required', 'string'],

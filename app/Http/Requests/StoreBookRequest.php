@@ -32,7 +32,7 @@ class StoreBookRequest extends FormRequest
     public function rules()
     {
         return [
-           'institution_id' => ['required', 'integer'],
+           'library_id' => ['required', 'integer'],
            'name' => ['required', 'string', 'unique:books,name'],
            'description' => ['string', 'max:255'],
            'classification' => ['required', 'string'],

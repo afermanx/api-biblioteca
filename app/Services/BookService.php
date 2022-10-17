@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\Book;
-use App\Models\Institution;
 use App\Traits\ApiException;
 use Illuminate\Http\UploadedFile;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -53,7 +53,7 @@ class BookService
     public function update(array $data, Book $book): Book
     {
         $sanitazeData = $this->sanitazeData($data, $book);
-        tap( $book)->update($sanitazeData);
+        tap($book)->update($sanitazeData);
         if (!$book) {
             return $this->badRequestException(['erro' => 'Error when trying to change book.']);
         }
@@ -68,7 +68,7 @@ class BookService
      */
     private function sanitazeData(array $data, ?Book $book = null): array
     {
-        if($book){
+        if ($book) {
             $avatar = $this->sanitazeAvatar($data['avatar'], $book);
         }
         $avatar = $this->sanitazeAvatar($data['avatar']);
@@ -80,23 +80,17 @@ class BookService
 
     private function sanitazeAvatar(UploadedFile $avatar, ?Book $book = null): string
     {
-        if($avatar){
-           $fileName = $avatar->getClientOriginalName();
-           $avatar->storeAs('images/books', $fileName, 'public');
+        $fileName = time().'.'.$avatar->getClientOriginalName();
+        if ($book) {
+            $this->deleteOldAvatar($book->avatar);
         }
 
-        if($avatar && $book){
-           $fileName = $avatar->getClientOriginalName();
-           $this->deleteOldAvatar($fileName);
-           $avatar->storeAs('images/books', $fileName, 'public');
-        }
-       return $fileName;
+       $avatar->storeAs('images/books', $fileName, 'public');
+        return $fileName;
     }
 
-    private function deleteOldAvatar(string $avatar): void
+    private function deleteOldAvatar(string $avatar): bool
     {
-        if($avatar){
-            Storage::delete('public/images/books/' . $avatar);
-        }
+        return Storage::delete('/public/images/books/' . $avatar);
     }
 }
