@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Book;
 use App\Models\Institution;
 use App\Traits\ApiException;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class BookService
@@ -51,7 +53,7 @@ class BookService
     public function update(array $data, Book $book): Book
     {
         $sanitazeData = $this->sanitazeData($data, $book);
-        $book->update($sanitazeData);
+        tap( $book)->update($sanitazeData);
         if (!$book) {
             return $this->badRequestException(['erro' => 'Error when trying to change book.']);
         }
@@ -66,8 +68,35 @@ class BookService
      */
     private function sanitazeData(array $data, ?Book $book = null): array
     {
+        if($book){
+            $avatar = $this->sanitazeAvatar($data['avatar'], $book);
+        }
+        $avatar = $this->sanitazeAvatar($data['avatar']);
         return[
-         ...$data
+            ...$data,
+            'avatar' => $avatar
         ];
+    }
+
+    private function sanitazeAvatar(UploadedFile $avatar, ?Book $book = null): string
+    {
+        if($avatar){
+           $fileName = $avatar->getClientOriginalName();
+           $avatar->storeAs('images/books', $fileName, 'public');
+        }
+
+        if($avatar && $book){
+           $fileName = $avatar->getClientOriginalName();
+           $this->deleteOldAvatar($fileName);
+           $avatar->storeAs('images/books', $fileName, 'public');
+        }
+       return $fileName;
+    }
+
+    private function deleteOldAvatar(string $avatar): void
+    {
+        if($avatar){
+            Storage::delete('public/images/books/' . $avatar);
+        }
     }
 }

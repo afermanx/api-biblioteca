@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
-
+    Route::get('books/qrcode/{book}', [BookController::class,'gerarQrCode']);
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
@@ -48,6 +48,7 @@ Route::prefix('v1')->group(function () {
             Route::post('/', [BookController::class,'create']);
             Route::get('/{book}', [BookController::class,'find']);
             Route::patch('/{book}', [BookController::class,'update']);
+
             Route::delete('/{book}', [BookController::class,'destroy']);
         });
     });

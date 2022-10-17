@@ -39,6 +39,7 @@ class StoreBookRequest extends FormRequest
            'author' => ['required', 'string'],
            'publisher' => ['required', 'string'],
            'status' => ['boolean'],
+           'avatar' => ['image', 'mimes:png,jpg'],
            'amount' => ['numeric'],
         ];
     }
