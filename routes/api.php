@@ -48,8 +48,15 @@ Route::prefix('v1')->group(function () {
             Route::post('/', [BookController::class,'create']);
             Route::get('/{book}', [BookController::class,'find']);
             Route::patch('/{book}', [BookController::class,'update']);
-
             Route::delete('/{book}', [BookController::class,'destroy']);
+        });
+
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [CategoryController::class,'listAll']);
+            Route::post('/', [CategoryController::class,'create']);
+            Route::get('/{category}', [CategoryController::class,'find']);
+            Route::patch('/{category}', [CategoryController::class,'update']);
+            Route::delete('/{category}', [CategoryController::class,'destroy']);
         });
     });
 });

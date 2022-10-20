@@ -85,7 +85,7 @@ class BookService
             $this->deleteOldAvatar($book->avatar);
         }
 
-       $avatar->storeAs('images/books', $fileName, 'public');
+        $avatar->storeAs('images/books', $fileName, 'public');
         return $fileName;
     }
 
