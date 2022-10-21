@@ -34,19 +34,18 @@ class StoreUserRequest extends FormRequest
         ];
     }
 
-     /**
+    /**
      * Get the error messages for the defined validation rules.
      *
-     * @return void
+     * @return array<string, string>
      */
-    /* public function messages()
+    public function messages()
     {
         return[
-            'username.required' => 'The username field is required',
-            'name.required' => 'The name field is required.',
-            'email.required' => 'The email field is required.',
-            'email.email' => 'The email must be a valid email address.',
-            'email.regex' => 'The email format is invalid.',
+            'username.required' => 'O campo login é obrigatório',
+            'name.required' => 'O campo nome é obrigatório',
+            'email.required' => 'O campo email é obrigatório',
+            'email.email' => 'O campo email deve ser um email válido',
         ];
-    } */
+    }
 }
