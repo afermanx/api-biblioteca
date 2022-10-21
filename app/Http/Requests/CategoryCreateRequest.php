@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpadateLibraryRequest extends FormRequest
+class CategoryCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,8 +15,12 @@ class UpadateLibraryRequest extends FormRequest
      */
     public function authorize()
     {
-        $is_Admin = Auth::user()->is_admin;
-        return $is_Admin;
+        $authorized = User::where('id', Auth::user()->id)
+        ->whereIn('type', ['librarian', 'super', 'main'])
+        ->first();
+
+        $authorized ? 'true' : false;
+        return $authorized;
     }
 
     /**
@@ -26,7 +31,7 @@ class UpadateLibraryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>['required', 'string']
+            'name' => ['required', 'string', 'unique:categories,name'],
         ];
     }
 
@@ -35,10 +40,12 @@ class UpadateLibraryRequest extends FormRequest
      *
      * @return void
      */
-    public function message()
+    public function messages()
     {
         return [
             'name.required' => 'O campo nome é obrigatório',
+            'name.string' => 'O campo nome deve ser uma string',
+            'name.unique' => 'O campo nome deve ser único',
         ];
     }
 }
