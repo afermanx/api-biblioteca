@@ -43,4 +43,34 @@ class StoreBookRequest extends FormRequest
            'amount' => ['numeric'],
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return void
+     */
+    public function messages()
+    {
+        return [
+            'library_id.required' => 'O campo biblioteca é obrigatório',
+            'library_id.integer' => 'O campo biblioteca deve ser um inteiro',
+            'name.required' => 'O campo nome é obrigatório',
+            'name.string' => 'O campo nome deve ser uma string',
+            'name.unique' => 'O campo nome deve ser único',
+            'description.string' => 'O campo descrição deve ser uma string',
+            'description.max' => 'O campo descrição deve ter no máximo 255 caracteres',
+            'classification.required' => 'O campo classificação é obrigatório',
+            'classification.string' => 'O campo classificação deve ser uma string',
+            'author.required' => 'O campo autor é obrigatório',
+            'author.string' => 'O campo autor deve ser uma string',
+            'publisher.required' => 'O campo editora é obrigatório',
+            'publisher.string' => 'O campo editora deve ser uma string',
+            'status.boolean' => 'O campo status deve ser um booleano',
+            'avatar.image' => 'O campo avatar deve ser uma imagem',
+            'avatar.mimes' => 'O campo avatar deve ser do tipo png ou jpg',
+            'amount.numeric' => 'O campo quantidade deve ser um número',
+        ];
+    }
+
+
 }

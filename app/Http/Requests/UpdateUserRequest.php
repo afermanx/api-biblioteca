@@ -36,4 +36,23 @@ class UpdateUserRequest extends FormRequest
             'status' => ['sometimes','required, string']
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return void
+     */
+    public function messages()
+    {
+        return [
+            'institution_id.required' => 'O campo instituição é obrigatório',
+            'name.required' => 'O campo nome é obrigatório',
+            'username.required' => 'O campo login é obrigatório',
+            'email.required' => 'O campo email é obrigatório',
+            'email.email' => 'O campo email deve ser um email válido',
+            'password.required' => 'O campo senha é obrigatório',
+            'type.required' => 'O campo tipo é obrigatório',
+            'is_admin.required' => 'O campo administrador é obrigatório',
+            'status.required' => 'O campo status é obrigatório',
+        ];
+    }
 }
