@@ -2,84 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use App\Services\CategoryService;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CategoryResourceCollection;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    use ApiResponse;
+    public function __construct(CategoryService $categoryService)
     {
-        //
+        $this->categoryService = $categoryService;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * This function returns a paginated list of all categories
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function create()
+    public function listAll(Request $request): JsonResponse
     {
-        //
+        $categories = $this->categoryService->listAll($request->only('perPage'));
+        return $this->ok(new CategoryResourceCollection($categories));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * this function creates a new category
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
-    public function store(Request $request)
+    public function create(CategoryCreateRequest $request): JsonResponse
     {
-        //
+        $category = $this->categoryService->create($request->validated());
+        return $this->ok(new CategoryResource($category));
     }
 
     /**
-     * Display the specified resource.
+     * This function updates a category
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Category $category
+     * @return JsonResponse
      */
-    public function show(Category $category)
+    public function update(CategoryUpdateRequest $request, Category $category): JsonResponse
     {
-        //
+        $category = $this->categoryService->update($category, $request->only('name'));
+        return $this->ok(new CategoryResource($category));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * This function deletes a category
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return JsonResponse
      */
-    public function edit(Category $category)
+    public function destroy(Category $category): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Category $category)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
-    {
-        //
+        $category->delete();
+        return $this->ok(['message' => 'Categoria removida com sucesso.']);
     }
 }

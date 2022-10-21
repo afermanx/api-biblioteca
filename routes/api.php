@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\InstitutionController;
-use App\Http\Controllers\LibraryController;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\{
+    UserController,
+    AuthController,
+    InstitutionController,
+    LibraryController,
+    BookController,
+    CategoryController
+};
 use Illuminate\Support\Facades\Route;
 
 /*

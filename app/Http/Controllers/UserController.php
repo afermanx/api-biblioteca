@@ -60,12 +60,12 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
         UserService::update($request->validated(), $user);
-        return $this->ok(['message' => 'User changed successfully']);
+        return $this->ok(['message' => 'Usu´rio atualizado com sucesso!']);
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return $this->ok(["message" => "User deleted successfully"]);
+        return $this->ok(["message" => "Usuário deletado com sucesso"]);
     }
 }

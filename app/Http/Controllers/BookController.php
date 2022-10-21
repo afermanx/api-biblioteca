@@ -70,4 +70,11 @@ class BookController extends Controller
         $book = BookService::update($request->validated(), $book);
         return $this->ok(BookResource::make($book));
     }
+
+    public function destroy(Book $book): JsonResponse
+    {
+        $book->delete();
+        return $this->ok(['message' => 'Livro deletado com sucesso']);
+    }
+
 }
