@@ -36,7 +36,11 @@ class UpdateUserRequest extends FormRequest
             'status' => ['sometimes','required, string']
         ];
     }
-
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return void
+     */
     public function messages()
     {
         return [
