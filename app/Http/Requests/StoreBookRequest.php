@@ -33,13 +33,17 @@ class StoreBookRequest extends FormRequest
     {
         return [
            'library_id' => ['required', 'integer'],
+           'category' => ['sometimes', 'required', 'integer'],
            'name' => ['required', 'string', 'unique:books,name'],
            'description' => ['string', 'max:255'],
            'classification' => ['required', 'string'],
            'author' => ['required', 'string'],
            'publisher' => ['required', 'string'],
            'status' => ['boolean'],
-           'avatar' => ['image', 'mimes:png,jpg'],
+           'shelf' => ['sometimes', 'required', 'array:identifier,place'],
+           'shelf.identifier' => ['required_with:shelf', 'string'],
+           'shelf.place' => ['required_with:shelf', 'string'],
+           /* 'avatar' => ['image', 'mimes:png,jpg'], */
            'amount' => ['numeric'],
         ];
     }
@@ -69,6 +73,12 @@ class StoreBookRequest extends FormRequest
             'avatar.image' => 'O campo avatar deve ser uma imagem',
             'avatar.mimes' => 'O campo avatar deve ser do tipo png ou jpg',
             'amount.numeric' => 'O campo quantidade deve ser um número',
+            'shelf.required' => 'O campo prateleira é obrigatório',
+            'shelf.array' => 'O campo prateleira deve ser um array',
+            'shelf.identifier.required_with' => 'O campo identificador da prateleira é obrigatório',
+            'shelf.identifier.string' => 'O campo identificador da prateleira deve ser uma string',
+            'shelf.place.required_with' => 'O campo localização da prateleira é obrigatório',
+            'shelf.place.string' => 'O campo localização da prateleira deve ser uma string',
         ];
     }
 

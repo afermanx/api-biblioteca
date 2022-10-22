@@ -14,7 +14,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('book_categories', function (Blueprint $table) {
+        Schema::create('book_category', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Book::class);
             $table->foreignIdFor(Category::class);

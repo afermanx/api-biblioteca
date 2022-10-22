@@ -13,12 +13,13 @@ class Book extends Model
 
     protected $fillable = [
         'library_id',
+        'avatar',
         'name',
         'description',
         'classification',
         'author',
         'publisher',
-        'avatar',
+        'shelf',
         'amount',
         'status'
     ];
@@ -26,9 +27,9 @@ class Book extends Model
     /**
      * The categories that belong to the Book
      *
-     * @return BelongsToMany
+    *
      */
-    public function categories(): BelongsToMany
+    public function categories()
     {
         return $this->belongsToMany(Category::class);
     }

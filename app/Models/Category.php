@@ -18,12 +18,8 @@ class Category extends Model
         'name'
     ];
 
-    /**
-     * The books that belong to the Category
-     *
-     * @return BelongsToMany
-     */
-    public function books(): BelongsToMany
+
+    public function books()
     {
         return $this->belongsToMany(Book::class);
     }

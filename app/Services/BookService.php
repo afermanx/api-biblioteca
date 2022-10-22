@@ -38,6 +38,10 @@ class BookService
         $sanitazeData = $this->sanitazeData($data);
         $book = Book::create($sanitazeData);
         $book = Book::find($book->id);
+        if($sanitazeData['category']){
+            $book->categories()->attach($sanitazeData['category']);
+        }
+
         return $book;
     }
 
@@ -68,13 +72,14 @@ class BookService
      */
     private function sanitazeData(array $data, ?Book $book = null): array
     {
-        if ($book) {
+      /*   if ($book) {
             $avatar = $this->sanitazeAvatar($data['avatar'], $book);
         }
-        $avatar = $this->sanitazeAvatar($data['avatar']);
+        $avatar = $this->sanitazeAvatar($data['avatar']); */
         return[
             ...$data,
-            'avatar' => $avatar
+            'shelf' => json_encode($data['shelf']),
+  /*           'avatar' => $avatar */
         ];
     }
 

@@ -17,13 +17,14 @@ return new class extends Migration {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Library::class);
+            $table->string('avatar')->nullable();
             $table->string('name')->unique;
             $table->string('description');
             $table->enum('classification', ['municipal', 'state']);
             $table->string('author');
             $table->string('publisher');
+            $table->json('shelf')->nullable();
             $table->bigInteger('amount')->default(0);
-            $table->string('avatar')->nullable();
             $table->enum('status', ['inactive', 'active','absent'])->default('active');
             $table->timestamps();
         });
