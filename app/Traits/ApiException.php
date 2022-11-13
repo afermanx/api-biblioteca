@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Exceptions\VeridcaException;
+use App\Exceptions\BtechException;
 
 trait ApiException
 {
@@ -14,7 +14,7 @@ trait ApiException
      */
     public function badRequestException(array|string $exception): void
     {
-        throw new VeridcaException($exception, 400);
+        throw new BtechException($exception, 400);
     }
 
     /**
@@ -25,6 +25,6 @@ trait ApiException
      */
     public function preConditionFailedException(array|string $exception): void
     {
-        throw new VeridcaException($exception, 412);
+        throw new BtechException($exception, 412);
     }
 }
