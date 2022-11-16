@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,5 +53,25 @@ class User extends Authenticatable
     public function institution()
     {
         return $this->hasOne(Institution::class);
+    }
+
+    /**
+     * The `books()` function returns a relationship between the `User` model and the
+     *
+     * @return HasMany
+     */
+    public function books(): HasMany
+    {
+        return $this->hasMany(Book::class);
+    }
+
+    /**
+     * The `rents()` function returns a relationship between the `User` model and the
+     *
+     * @return HasMany
+     */
+    public function rents(): HasMany
+    {
+        return $this->hasMany(Rent::class);
     }
 }

@@ -3,13 +3,14 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Traits\ApiException;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\Events\TokenAuthenticated;
+use Illuminate\Support\Facades\Response;
 
 class AuthService
 {
-    use ApiResponse;
+    use ApiResponse, ApiException;
 
     /**
      * login and token generation
@@ -19,16 +20,10 @@ class AuthService
      */
     public function login(array $data): string
     {
-
-        if (!Auth::attempt($data)) {
-            return $this->badRequest(['message' => 'Credentials not match.']);
+        if (! Auth::attempt($data)) {
+            $this->badRequestException('Invalid credentials.');
         }
         return auth()->user()->createToken('api-biblioteca-' . auth()->user()->id)->plainTextToken;
-    }
-
-    public function me(): User
-    {
-        return auth()->user();
     }
 
     /**
@@ -40,7 +35,7 @@ class AuthService
     public function logout(User $user): bool
     {
         if (!$user) {
-            return $this->ok(['message' => 'User not found.']);
+            return $this->badRequestException(['error' => 'User not found.']);
         }
 
         return $user->currentAccessToken()->delete();

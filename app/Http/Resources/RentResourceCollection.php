@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CategoryResourceCollection extends ResourceCollection
+class RentResourceCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,9 +15,9 @@ class CategoryResourceCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $categoryResource = CategoryResource::collection($this->collection);
+        $rentResource = RentResource::collection($this->collection);
         return [
-            'data' => $categoryResource,
+            'data' => $rentResource,
             'first_page_url' => $this->url(1),
             'from' => $this->firstItem(),
             'last_page' => $this->lastPage(),

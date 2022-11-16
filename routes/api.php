@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\{
-    UserController,
-    AuthController,
-    InstitutionController,
-    LibraryController,
-    BookController,
-    CategoryController
-};
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InstitutionController;
+use App\Http\Controllers\LibraryController;
+use App\Http\Controllers\RentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
-    Route::get('books/qrcode/{book}', [BookController::class,'gerarQrCode']);
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
@@ -60,6 +58,11 @@ Route::prefix('v1')->group(function () {
             Route::get('/{category}', [CategoryController::class,'find']);
             Route::patch('/{category}', [CategoryController::class,'update']);
             Route::delete('/{category}', [CategoryController::class,'destroy']);
+        });
+
+        Route::prefix('rents')->group(function () {
+            Route::get('/', [RentController::class,'listAll']);
+            Route::post('/', [RentController::class,'rent']);
         });
     });
 });

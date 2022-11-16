@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Facades\App\Services\AuthService;
-use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Http\Requests\LoginUserRequest;
 
+use App\Http\Requests\LoginUserRequest;
+use App\Traits\ApiResponse;
+use Facades\App\Services\AuthService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -34,7 +34,7 @@ class AuthController extends Controller
      */
     public function me(): JsonResponse
     {
-       return $this->ok(AuthService::me());
+        return $this->ok(auth()->user());
     }
 
     /**

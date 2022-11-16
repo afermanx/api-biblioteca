@@ -24,7 +24,8 @@ return new class extends Migration {
             $table->string('publisher');
             $table->bigInteger('amount')->default(0);
             $table->string('avatar')->nullable();
-            $table->enum('status', ['inactive', 'active','absent'])->default('active');
+            $table->enum('status', ['inactive', 'active','rented'])->default('active');
+            $table->json('place')->nullable(); // { shelf: 1, row: 1, column: 1 }
             $table->timestamps();
         });
     }

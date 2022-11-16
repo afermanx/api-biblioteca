@@ -2,9 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource;
+use App\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class RentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +19,10 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'book' => BookResource::make($this->book),
+            'user' => UserResource::make($this->user),
+            'rented_by' => $this->rented_by,
+            'due_date' => Carbon::create($this->due_date)->format('Y-m-d H:i:s'),
         ];
 
     }
