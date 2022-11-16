@@ -64,4 +64,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Book::class);
     }
+
+    /**
+     * The `rents()` function returns a relationship between the `User` model and the
+     *
+     * @return HasMany
+     */
+    public function rents(): HasMany
+    {
+        return $this->hasMany(Rent::class);
+    }
 }

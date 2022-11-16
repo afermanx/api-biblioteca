@@ -25,6 +25,7 @@ class BookResource extends JsonResource
             'amount' => $this->amount,
             'avatar' => $this->avatar,
             'status' => $this->status,
+            "place" => json_decode($this->place),
         ];
     }
 }

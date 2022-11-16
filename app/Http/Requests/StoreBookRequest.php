@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreBookRequest extends FormRequest
 {
@@ -41,6 +41,12 @@ class StoreBookRequest extends FormRequest
            'status' => ['boolean'],
            'avatar' => ['image', 'mimes:png,jpg'],
            'amount' => ['numeric'],
+           'place' => ['array:shelf,row,column'],
+           'place.shelf' => ['required_with:place'],
+           'place.row' => ['required_with:place'],
+           'place.column' => ['required_with:place'],
+           'category' => ['required', 'integer'],
+
         ];
     }
 
@@ -69,6 +75,11 @@ class StoreBookRequest extends FormRequest
             'avatar.image' => 'O campo avatar deve ser uma imagem',
             'avatar.mimes' => 'O campo avatar deve ser do tipo png ou jpg',
             'amount.numeric' => 'O campo quantidade deve ser um número',
+            'place.array' => 'O campo localização deve ser um array',
+            'place.shelf.required_with' => 'O campo prateleira é obrigatório',
+            'place.row.required_with' => 'O campo linha é obrigatório',
+            'place.column.required_with' => 'O campo coluna é obrigatório',
+
         ];
     }
 

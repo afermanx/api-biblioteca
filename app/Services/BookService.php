@@ -5,9 +5,9 @@ namespace App\Services;
 use App\Models\Book;
 use App\Traits\ApiException;
 use Illuminate\Http\UploadedFile;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class BookService
 {
@@ -37,7 +37,9 @@ class BookService
     {
         $sanitazeData = $this->sanitazeData($data);
         $book = Book::create($sanitazeData);
-        $book = Book::find($book->id);
+        if($sanitazeData['category']) {
+            $book->categories()->attach($sanitazeData['category']);
+        }
         return $book;
     }
 
@@ -71,10 +73,11 @@ class BookService
         if ($book) {
             $avatar = $this->sanitazeAvatar($data['avatar'], $book);
         }
-        $avatar = $this->sanitazeAvatar($data['avatar']);
+
         return[
             ...$data,
-            'avatar' => $avatar
+           'place' => json_encode($data['place']),
+
         ];
     }
 

@@ -2,9 +2,9 @@
 
 use App\Models\Book;
 use App\Models\Category;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     /**
@@ -14,11 +14,9 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('book_categories', function (Blueprint $table) {
-            $table->id();
+        Schema::create('book_category', function (Blueprint $table) {
             $table->foreignIdFor(Book::class);
             $table->foreignIdFor(Category::class);
-            $table->timestamps();
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('book_categories');
+        Schema::dropIfExists('book_category');
     }
 };
