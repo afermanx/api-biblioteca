@@ -48,6 +48,9 @@ class RentService
             });
         }
 
+        $rents->orderBy('id', 'desc');
+        $rents->where('returned_at', null);
+
         return $rents->paginate($perPage);
     }
     /**
@@ -69,6 +72,27 @@ class RentService
             $this->badRequestException(['message' => 'Você já possui um empréstimo deste livro']);
         }
         $rent = Rent::create($this->sanitazeData($data, $book));
+
+        return $rent;
+    }
+
+    /**
+     * return a book
+     *
+     * @param int $id
+     * @return Rent
+     */
+    public function return(Rent $rent): Rent
+    {
+        if ($rent->returned_at) {
+            $this->badRequestException(['message' => 'Livro já devolvido']);
+        }
+        $rent->returned_at = Carbon::now();
+        $rent->save();
+
+        $book = Book::find($rent->book_id);
+        $book->amount += 1;
+        $book->save();
 
         return $rent;
     }
