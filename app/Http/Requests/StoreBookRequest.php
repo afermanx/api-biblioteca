@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +38,6 @@ class StoreBookRequest extends FormRequest
            'author' => ['required', 'string'],
            'publisher' => ['required', 'string'],
            'status' => ['boolean'],
-           'avatar' => ['image', 'mimes:png,jpg'],
            'amount' => ['numeric'],
            'place' => ['array:shelf,row,column'],
            'place.shelf' => ['required_with:place'],
@@ -82,6 +80,4 @@ class StoreBookRequest extends FormRequest
 
         ];
     }
-
-
 }
