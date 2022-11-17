@@ -63,6 +63,15 @@ Route::prefix('v1')->group(function () {
         Route::prefix('rents')->group(function () {
             Route::get('/', [RentController::class,'listAll']);
             Route::post('/', [RentController::class,'rent']);
+            Route::post('/{rent}/return', [RentController::class,'return']);
+        });
+
+        Route::prefix('tags')->group(function () {
+            Route::get('/', [TagController::class,'listAll']);
+            Route::post('/', [TagController::class,'create']);
+            Route::get('/{tag}', [TagController::class,'find']);
+            Route::patch('/{tag}', [TagController::class,'update']);
+            Route::delete('/{tag}', [TagController::class,'destroy']);
         });
     });
 });
