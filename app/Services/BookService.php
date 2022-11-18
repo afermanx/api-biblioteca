@@ -37,7 +37,7 @@ class BookService
     {
         $sanitazeData = $this->sanitazeData($data);
         $book = Book::create($sanitazeData);
-        if($sanitazeData['category']) {
+        if ($sanitazeData['category']) {
             $book->categories()->attach($sanitazeData['category']);
         }
         return $book;
@@ -70,9 +70,9 @@ class BookService
      */
     private function sanitazeData(array $data, ?Book $book = null): array
     {
-        if ($book) {
-            $avatar = $this->sanitazeAvatar($data['avatar'], $book);
-        }
+        /*  if ($book) {
+             $avatar = $this->sanitazeAvatar($data['avatar'], $book);
+         } */
 
         return[
             ...$data,

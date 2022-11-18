@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +34,7 @@ class StoreBookRequest extends FormRequest
            'library_id' => ['required', 'integer'],
            'name' => ['required', 'string', 'unique:books,name'],
            'description' => ['string', 'max:255'],
-           'classification' => ['required', 'string'],
+           'classification' => ['required', 'in:municipal,state'],
            'author' => ['required', 'string'],
            'publisher' => ['required', 'string'],
            'status' => ['boolean'],
@@ -66,7 +65,7 @@ class StoreBookRequest extends FormRequest
             'description.string' => 'O campo descrição deve ser uma string',
             'description.max' => 'O campo descrição deve ter no máximo 255 caracteres',
             'classification.required' => 'O campo classificação é obrigatório',
-            'classification.string' => 'O campo classificação deve ser uma string',
+            'classification.in' => 'O campo classificação deve ser municipal ou estadual',
             'author.required' => 'O campo autor é obrigatório',
             'author.string' => 'O campo autor deve ser uma string',
             'publisher.required' => 'O campo editora é obrigatório',
@@ -79,9 +78,8 @@ class StoreBookRequest extends FormRequest
             'place.shelf.required_with' => 'O campo prateleira é obrigatório',
             'place.row.required_with' => 'O campo linha é obrigatório',
             'place.column.required_with' => 'O campo coluna é obrigatório',
+            'category.required' => 'O campo categoria é obrigatório',
 
         ];
     }
-
-
 }
