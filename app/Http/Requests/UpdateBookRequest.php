@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateBookRequest extends FormRequest
 {
@@ -34,12 +34,17 @@ class UpdateBookRequest extends FormRequest
             'library_id' => ['sometimes', 'required', 'integer'],
             'name' => ['sometimes', 'required', 'string', 'unique:books,name,' . $this->book->id],
             'description' => ['sometimes', 'string', 'max:255'],
-            'classification' => ['sometimes', 'required', 'string'],
+            'classification' => ['sometimes', 'required', 'in:municipal,state'],
             'author' => ['sometimes', 'required', 'string'],
             'publisher' => ['sometimes', 'required', 'string'],
             'status' => ['sometimes', 'boolean'],
             'avatar' => ['sometimes', 'image', 'mimes:png,jpg'],
             'amount' => ['sometimes', 'numeric'],
+            'place' => ['sometimes','array:shelf,row,column'],
+            'place.shelf' => ['sometimes','required_with:place'],
+            'place.row' => ['sometimes','required_with:place'],
+            'place.column' => ['sometimes','required_with:place'],
+            'category' => ['sometimes','required', 'integer'],
         ];
     }
 
@@ -54,7 +59,7 @@ class UpdateBookRequest extends FormRequest
             'description.string' => 'O campo descrição deve ser uma string',
             'description.max' => 'O campo descrição deve ter no máximo 255 caracteres',
             'classification.required' => 'O campo classificação é obrigatório',
-            'classification.string' => 'O campo classificação deve ser uma string',
+            'classification.in' => 'O campo classificação deve ser municipal ou estadual',
             'author.required' => 'O campo autor é obrigatório',
             'author.string' => 'O campo autor deve ser uma string',
             'publisher.required' => 'O campo editora é obrigatório',
@@ -63,6 +68,11 @@ class UpdateBookRequest extends FormRequest
             'avatar.image' => 'O campo avatar deve ser uma imagem',
             'avatar.mimes' => 'O campo avatar deve ser do tipo png ou jpg',
             'amount.numeric' => 'O campo quantidade deve ser um número',
+            'place.array' => 'O campo localização deve ser um array',
+            'place.shelf.required_with' => 'O campo prateleira é obrigatório',
+            'place.row.required_with' => 'O campo linha é obrigatório',
+            'place.column.required_with' => 'O campo coluna é obrigatório',
+            'category.required' => 'O campo categoria é obrigatório',
         ];
     }
 }

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
-use Facades\App\Services\UserService;
-use Illuminate\Http\JsonResponse;
-use App\Http\Resources\UserResource;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
+use App\Models\User;
+use App\Traits\ApiResponse;
+use Facades\App\Services\UserService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -24,7 +24,7 @@ class UserController extends Controller
     public function listAll(Request $request): JsonResponse
     {
         $users = UserService::listAll($request->all());
-        return $this->ok(UserResource::collection($users));
+        return $this->ok(new UserResourceCollection($users));
     }
 
     /**
