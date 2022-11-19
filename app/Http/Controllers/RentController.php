@@ -52,4 +52,16 @@ class RentController extends Controller
         $rent = RentService::return($rent);
         return $this->ok(RentResource::make($rent));
     }
+
+   /**
+    * prolong a rent
+    *
+    * @param Rent $rent
+    * @return JsonResponse
+    */
+    public function prolong(Request $request, Rent $rent): JsonResponse
+    {
+        $rent = RentService::prolong($request->only('days'), $rent);
+        return $this->ok(['message' => 'O prazo foi prorrogado com sucesso']);
+    }
 }

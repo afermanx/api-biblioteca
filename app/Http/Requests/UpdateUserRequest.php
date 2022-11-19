@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -28,7 +28,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'institution_id' => ['sometimes', 'required'],
             'name' => ['sometimes', 'required'],
-            'username' => ['sometimes', 'string', 'unique:users,username,'. $this->user->id ],
+            'username' => ['sometimes', 'required', 'string', 'unique:users,username,'. $this->user->id ],
             'email' => ['sometimes','required', 'email:dns', 'unique:users,email,'. $this->user->id],
             'password' => ['sometimes','required, min:6, same:passwordConfirmation'],
             'type' => ['sometimes', 'required', 'string'],

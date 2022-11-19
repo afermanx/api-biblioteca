@@ -25,7 +25,7 @@ class ListRentRequest extends FormRequest
     public function rules()
     {
         return [
-           'perPage' => 'integer|min:10|max:100',
+           'perPage' => 'integer|min:5|max:100',
            'user_id' => ['sometimes','required','integer', 'exists:users,id'],
            'user_name' => ['sometimes','required','string'],
            'book_id' => ['sometimes','required','integer', 'exists:books,id'],

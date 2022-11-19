@@ -5,8 +5,8 @@ namespace App\Services;
 use App\Models\Institution;
 use App\Models\User;
 use App\Traits\ApiResponse;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -20,7 +20,7 @@ class UserService
      */
     public function listAll(array $data): LengthAwarePaginator
     {
-        $perPage = data_get($data, 'perPage') ?? 10;
+        $perPage = data_get($data, 'perPage') ?? 5;
         return User::paginate($perPage);
     }
 
@@ -70,10 +70,17 @@ class UserService
         if (!$user) {
             $institution = Institution::find($data['institution_id']);
         }
+
+        if (isset($data['username'])) {
+            return[
+                ...$data,
+                'username' => $user === null ? generateUsername($institution->name) : $data['username'],
+                'password' => Hash::make(data_get($data, 'password')),
+            ];
+        }
         return[
-         ...$data,
-         'username' => $user === null ? generateUsername($institution->name) : $data['username'],
-         'password' => Hash::make(data_get($data, 'password')),
+            ...$data,
+            'password' => Hash::make(data_get($data, 'password')),
         ];
     }
 }

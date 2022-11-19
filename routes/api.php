@@ -49,6 +49,7 @@ Route::prefix('v1')->group(function () {
             Route::post('/', [BookController::class,'create']);
             Route::get('/{book}', [BookController::class,'find']);
             Route::patch('/{book}', [BookController::class,'update']);
+            Route::patch('/{book}/avatar', [BookController::class,'sendAvatar']);
             Route::delete('/{book}', [BookController::class,'destroy']);
         });
 
@@ -64,6 +65,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/', [RentController::class,'listAll']);
             Route::post('/', [RentController::class,'rent']);
             Route::post('/{rent}/return', [RentController::class,'return']);
+            Route::patch('/{rent}/prolong', [RentController::class,'prolong']);
         });
 
         Route::prefix('tags')->group(function () {
