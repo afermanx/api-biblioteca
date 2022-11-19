@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
+use App\Http\Resources\BookResource;
+use App\Http\Resources\BookResourceCollection;
 use App\Models\Book;
 use App\Models\User;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Http\Resources\BookResource;
 use Facades\App\Services\BookService;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
-use App\Http\Resources\BookResourceCollection;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -71,10 +71,23 @@ class BookController extends Controller
         return $this->ok(BookResource::make($book));
     }
 
+    /**
+     * > Delete a book
+     *
+     * @param Request $request
+     * @param Book $book
+     * @return JsonResponse
+     */
+    public function sendAvatar(Request $request, Book $book): JsonResponse
+    {
+
+        $book = BookService::sendAvatar($request->file('avatar'), $book);
+        return $this->ok(['message' => 'Imagem enviada com sucesso.']);
+    }
+
     public function destroy(Book $book): JsonResponse
     {
         $book->delete();
         return $this->ok(['message' => 'Livro deletado com sucesso']);
     }
-
 }

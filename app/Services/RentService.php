@@ -22,7 +22,7 @@ class RentService
      */
     public function listAll(array $data): LengthAwarePaginator
     {
-        $perPage = $data['perPage'] ?? 10;
+        $perPage = $data['perPage'] ?? 5;
 
         $rents = Rent::with('book', 'user');
         if (isset($data['user_id'])) {
@@ -95,6 +95,29 @@ class RentService
         $book->save();
 
         return $rent;
+    }
+
+      /**
+    * prolong a rent
+    *
+    * @param array $data
+    * @param Rent $rent
+    * @return void
+    */
+    public function prolong(array $data, Rent $rent): void
+    {
+        if ($rent->returned_at) {
+            $this->badRequestException(['message' => 'Livro já devolvido']);
+        }
+
+        if ($rent->book->categories->first()->name == 'didatico') {
+            $this->badRequestException(['message' => 'Livro didatico não pode ser prorrogado']);
+        }
+        $prolog = Carbon::parse($rent->due_date)->addDays($data['days']);
+
+        $rent->update(['due_date' => $prolog]);
+
+        ;
     }
 
     /**

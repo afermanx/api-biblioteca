@@ -22,7 +22,7 @@ class BookService
      */
     public function listAll(array $data): LengthAwarePaginator
     {
-        $perPage = $data['perPage'] ?? 10;
+        $perPage = $data['perPage'] ?? 5;
         return Book::paginate($perPage);
     }
 
@@ -63,6 +63,16 @@ class BookService
     }
 
     /**
+     * send avatar to storage
+     */
+    public function sendAvatar(UploadedFile $file, Book $book): string
+    {
+        $avatar = $this->sanitazeAvatar($file);
+        $book->update(['avatar' => $avatar]);
+        return '$name';
+    }
+
+    /**
      * sanitaze request before create or update
      *
      * @param array $data
@@ -70,10 +80,10 @@ class BookService
      */
     private function sanitazeData(array $data, ?Book $book = null): array
     {
-        /*  if ($book) {
-             $avatar = $this->sanitazeAvatar($data['avatar'], $book);
-         } */
-
+        /* if ($book && isset($data['avatar'])) {
+            $avatar = $this->sanitazeAvatar($data['avatar'], $book);
+        }
+        */
         return[
             ...$data,
            'place' => json_encode($data['place']),
@@ -81,15 +91,13 @@ class BookService
         ];
     }
 
-    private function sanitazeAvatar(UploadedFile $avatar, ?Book $book = null): string
+    private function sanitazeAvatar(UploadedFile $file): string
     {
-        $fileName = time().'.'.$avatar->getClientOriginalName();
-        if ($book) {
-            $this->deleteOldAvatar($book->avatar);
-        }
+        $image = Image::make($file)->resize(300, 300)->encode('png');
+        $name = $file->hashName();
+        dd($name, $image);
 
-        $avatar->storeAs('images/books', $fileName, 'public');
-        return $fileName;
+        return '$';
     }
 
     private function deleteOldAvatar(string $avatar): bool

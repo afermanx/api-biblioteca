@@ -18,7 +18,7 @@ class CategoryService
      */
     public function listAll(array $data): LengthAwarePaginator
     {
-        $perPage = $data['perPage'] ?? 10;
+        $perPage = $data['perPage'] ?? 5;
         return Category::paginate($perPage);
     }
 
